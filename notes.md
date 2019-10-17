@@ -45,8 +45,9 @@ Visual-Meta contains of bibliographic metadata about the document (author, title
 
 * BibTeX (very common but complex especially names and non-Latin scripts)
 * YAML-Header fields (`title`, `author` (string or list of strings), `date` (YYYY-MM-DD))
+* [CSL-JSON](https://format.gbv.de/csl-json) is most advanced for citation data but more used internally
 
-Requirement 3 recommends to use an existing data structuring format format. Requirements 3.2 and 4 lead to JSON without line breaks (the JSON document can be split over multiple lines but line breaks must be ignored when parsing). To further simplify the format and allow for minor syntactical errors Visual-Meta MAY also be expressed in [JSON5](https://json5.org/), a simplified syntax of JSON.
+Requirement 3 recommends to use an existing data structuring format format. Requirements 3.2 and 4 argue for JSON without line breaks (the JSON document can be split over multiple lines but line breaks must be ignored when parsing). To further simplify the format and allow for minor syntactical errors Visual-Meta MAY also be expressed in [JSON5](https://json5.org/), a simplified syntax of JSON. BibTeX might also be used but it requires an additional parser which is not as easy as a JSON parser.
 
 Requirement 2.1. could be solved with a separator such as `----` or `VISUAL-META` before and after the JSON data. It is also possible without such separator if the JSON/JSON5 section always starts with a known field name, e.g. "`Visual-Meta`". 
 
@@ -114,4 +115,27 @@ CLS-JSON as object value (more verbose than simple `author` and `date` field):
 "given": "name" }, "title": "title of document", "date":
 "issued": { "date-parts": [ [ "2020", "01, "01" ] ] } },
 "custom": 12345 }
+~~~
+
+If BibTeX is needed and escaping it in JSON is not wanted, put BibTeX at the very end of the document:
+
+~~~
+@article{ title: {name, author},
+title: {title}, year: {2020} }
+~~~
+
+Additional metadata fields could be put in JSON *in front of the BibTeX*:
+
+~~~
+{ "Visual-Meta": "...", "formating": "..." }
+@article{ title: {name, author},
+title: {title}, year: {2020} }
+~~~
+
+Or only use BibTeX with custom fields: 
+
+~~~
+@article{ title: {name, author},
+title: {title}, year: {2020}, formatting: {
+...} }
 ~~~
