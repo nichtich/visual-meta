@@ -91,3 +91,27 @@ function extractVisualMeta(doc) {
 }
 ~~~
 
+## Extended metadata
+
+The most common YAML header fields are `title`, `author` and `date`. If this is not enough the format should better be based on an existing citation data format, one of:
+
+* [CSL-JSON](https://format.gbv.de/csl-json)
+* BibTeX
+
+Both can be converted from each other with [citation.js](https://citation.js.org/). For Visual-Meta the format could allow both:
+
+BibTeX as string-value (requires proper JSON-escaping of `"` and `\` in BibTeX string!):
+
+~~~
+{ "Visual-Meta": "@article{ title: {name, author},
+title: {title}, year: {2020} }" }
+~~~
+
+CLS-JSON as object value (more verbose than simple `author` and `date` field):
+
+~~~
+{ "Visual-Meta": { "author": [ { "family": "surname",
+"given": "name" }, "title": "title of document", "date":
+"issued": { "date-parts": [ [ "2020", "01, "01" ] ] } },
+"custom": 12345 }
+~~~
