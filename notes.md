@@ -132,6 +132,8 @@ Additional metadata fields could be put in JSON *in front of the BibTeX*:
 title: {title}, year: {2020} }
 ~~~
 
+Disadvantage: two formats
+
 Or only use BibTeX with custom fields: 
 
 ~~~
@@ -139,3 +141,5 @@ Or only use BibTeX with custom fields:
 title: {title}, year: {2020}, formatting: {
 ...} }
 ~~~
+
+Disadvantage: custom BibTeX fields cannot contain `{` and `}` without ugly workaround.
