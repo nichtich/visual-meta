@@ -142,4 +142,9 @@ title: {title}, year: {2020}, formatting: {
 ...} }
 ~~~
 
-Disadvantage: custom BibTeX fields cannot contain `{` and `}` without ugly workaround.
+Disadvantage: custom BibTeX fields [cannot contain](https://tex.stackexchange.com/questions/230750/open-brace-in-bibtex-fields) `{` and `}` (at least not unbalanced).
+
+## Formatting metadata
+
+Several standards exist for formatting metadata (e.g. [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets), [OpenDocument Styles](https://en.wikipedia.org/wiki/OpenDocument_technical_specification#styles.xml), XSL-FO... See also [styles in TEI](https://tei-c.org/release/doc/tei-p5-doc/en/html/HD.html#HD57-1a).
+
