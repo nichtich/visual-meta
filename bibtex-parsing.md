@@ -10,11 +10,15 @@ The start of a BibTeX entry can be detected with the regular expression `@[a-z]+
 
 The end of the entry can be found by counting braces `{` and `}`.
 
-A BibTeX appending is included:
 
+The following Perl script `extract-visual-meta.pl` extracts the last BibTeX entry from a file:
+
+~~~sh
+$ ./extract-visual-meta.pl < bibtex-parsing.md
 @misc{
   title={Parsing BibTeX from documents},
   custom={This is a {custom} field}
 }
+~~~
 
-
+The BibTeX appending is included above.
