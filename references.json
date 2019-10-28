@@ -1,0 +1,50 @@
+[
+  {
+    "DOI": "10.1145/3345509.3349281",
+    "author": [
+      {
+        "family": "Hegland",
+        "given": "Frode"
+      }
+    ],
+    "container-title": "Proceedings of the 2nd International Workshop on Human Factors in Hypertext",
+    "container-title-short": "HUMAN@HT",
+    "id": "Q72164951",
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "journalAbbreviation": "HUMAN@HT",
+    "page": "31-33",
+    "source": "Wikidata",
+    "title": "Visual-Meta: An approach to Surfacing Metadata",
+    "type": "paper-conference"
+  },
+  {
+    "URL": "http://dougengelbart.org/content/view/138",
+    "author": [
+      {
+        "family": "Engelbart",
+        "given": "Douglas"
+      }
+    ],
+    "id": "Q72167445",
+    "issued": {
+      "date-parts": [
+        [
+          1962,
+          10
+        ]
+      ]
+    },
+    "keyword": "oNLine System",
+    "publisher": "SRI International",
+    "publisher-place": "Menlo Park, USA",
+    "source": "Wikidata",
+    "title": "Augmenting Human Intellect: A Conceptual Framework",
+    "type": "report"
+  }
+]

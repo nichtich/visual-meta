@@ -26,6 +26,7 @@ sub extract_visual_meta {
 
 # get document from STDIN
 my $doc = join "\n", <>;
-my $entry = extract_visual_meta($doc);
-$entry->key('') unless defined $entry->key;    # avoid warning
-say $entry->to_string( type_capitalization => 'Lowercase' ) if $entry;
+if ( my $entry = extract_visual_meta($doc) ) {
+    $entry->key('') unless defined $entry->key;    # avoid warning
+    say $entry->to_string( type_capitalization => 'Lowercase' );
+}
