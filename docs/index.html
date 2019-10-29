@@ -1,116 +1,117 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="author" content="Jakob Voß" />
-  <title>Visual-Meta design considerations</title>
-  <style>
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-  <style>
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
-</head>
-<body>
-<header id="title-block-header">
-<h1 class="title">Visual-Meta design considerations</h1>
-<p class="author">Jakob Voß</p>
-<p class="date">2019-10</p>
-</header>
-<p>This paper summarizes some design considerations of <em>Visual-Meta</em>, an approach to visibly embed metadata in documents.</p>
-<h1 id="introduction">Introduction</h1>
+  <head>
+    <meta charset="utf-8" />
+    <title>Visual-Meta design considerations</title>
+    <link href="css/basic.css" media="all" rel="stylesheet" />
+    <link href="css/dokieli.css" rel="stylesheet" media="all" />
+    <link href="css/index.css" rel="stylesheet" media="all" />
+    <meta name="generator" content="pandoc" />
+        <link rel="canonical" href="http://jakobvoss.de/visual-meta/" />
+      </head>
+
+  <body about="" prefix="rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns# schema: http://schema.org/" typeof="schema:CreativeWork">
+
+    <main>
+      <article about="" typeof="schema:ScholarlyArticle">
+        
+        <h1 property="schema:name">Visual-Meta design considerations</h1>
+
+        
+                <div id="authors">
+          <dl id="author-name">
+            <dt>Authors</dt>
+            <dd>
+                           <span about="" rel="schema:creator schema:publisher schema:author">
+                <a about="https://orcid.org/https://orcid.org/0000-0002-7613-4123" typeof="schema:Person" rel="schema:url" property="schema:name" href="">Jakob Voß</a>
+                                  <a href="https://orcid.org/https://orcid.org/0000-0002-7613-4123">
+                    <img alt="ORCID iD" src="orcid.svg" style="height:16px; margin-left:4px; margin-right:4px; width:16px">
+                  </a>
+                              </span>
+                         </dd>
+          </dl>
+          <ul id="author-org">
+                       <li></li>
+                     </ul>
+          <ul id="author-email">
+                       <li><a about="https://orcid.org/https://orcid.org/0000-0002-7613-4123" rel="schema:email" href="mailto:"></a></li>
+                     </ul>
+        </div>
+        
+        
+                <dl id="document-date">
+          <dt>Date</dt>
+          <dd>
+            2019-10-29
+            
+          </dd>
+        </dl>
+        
+                <dl id="document-identifier">
+          <dt>Identifier</dt>
+          <dd>
+                      <a href="http://jakobvoss.de/visual-meta/">http://jakobvoss.de/visual-meta/</a>
+                      </dd>
+        </dl>
+        
+                <dl id="document-status">
+          <dt>Status</dt>
+          <dd>Work in progress</dd>
+        </dl>
+        
+                <dl id="document-repository">
+          <dt>Repository</dt>
+          <dd><a href="https://github.com/nichtich/visual-meta/">https://github.com/nichtich/visual-meta/</a></dd>
+        </dl>
+        
+                <dl id="document-feedback">
+          <dt>Feedback</dt>
+                    <dd><a href="https://via.hypothes.is/http://jakobvoss.de/visual-meta/">Annotate via hypothes.is</a></dd>
+                    <dd><a href="https://github.com/nichtich/visual-meta/issues">Open a GitHub issue</a></dd>
+                  </dl>
+        
+                <dl id="document-license">
+          <dt>License</dt>
+          <dd><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></dd>
+        </dl>
+        
+
+        <div id="content">
+
+                    <section id="abstract">
+            <h2>Abstract</h2>
+            <div datatype="rdf:HTML" property="schema:abstract">
+              This paper summarizes some design considerations of <em>Visual-Meta</em>, an approach to visibly embed metadata in documents.
+            </div>
+          </section>
+          
+          
+          
+<h2 id="introduction">Introduction</h2>
 <p>The connection between a document and information <em>about</em> it (metadata), is easily lost when the document is copied or converted. Some document formats support embedded metadata such as EXIF in image files and XMP in PDF files, but the quality of this data is usually poor and its is rarely used when referencing the document. The loss of metadata is even more inevitable when a section of a document is copied. Software for citation management and personal knowledge management such as Zotero and Citavi provide tools to keep track of document metadata but the metadata first has to be provided in some form and second its not kept easily across different tools.</p>
-<p>Visual-Meta is an approach to keep the connection between document and metadata by visibly putting the metadata into a document. The idea was presented by <span class="citation" data-cites="Q72164951">Hegland (2019)</span> at the Hypertext’19 conference where I first criticized it but then got into a fruitful discussion that eventually led to this document.</p>
-<h1 id="visual-meta">Visual-Meta</h1>
+<p>Visual-Meta is an approach to keep the connection between document and metadata by visibly putting the metadata into a document. The idea was presented by <span class="citation" data-cites="Q72164951">Hegland (<a href="#ref-Q72164951">2019</a>)</span> at the Hypertext’19 conference where I first criticized it but then got into a fruitful discussion that eventually led to this document.</p>
+<h2 id="visual-meta">Visual-Meta</h2>
 <p>In its current, informal specification Visual-Meta is basically a BibTeX entry embedded in a document. The BibTeX entry MUST start with <code>@</code> directly followed by the document type<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and an opening <code>{</code>.</p>
-<p>In its simplest form for a Visual-Meta record is just a BibTeX entry like this of <span class="citation" data-cites="Q72167445">Engelbart (1962)</span>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb1-1" title="1"><span class="va">@article</span>{</a>
-<a class="sourceLine" id="cb1-2" title="2">  <span class="ot">author</span> = {<span class="ot">Douglas</span> <span class="ot">Engelbart</span>}<span class="co">,</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="co">  title = {Augmenting Human Intellect: A Conceptual Framework},</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="co">  month = oct, year = {1962}, </span></a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="co">  institution = {SRI}  </span></a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="co">}</span></a></code></pre></div>
+<p>In its simplest form for a Visual-Meta record is just a BibTeX entry like this of <span class="citation" data-cites="Q72167445">Engelbart (<a href="#ref-Q72167445">1962</a>)</span>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="va">@article</span>{</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="ot">author</span> = {<span class="ot">Douglas</span> <span class="ot">Engelbart</span>}<span class="co">,</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">  title = {Augmenting Human Intellect: A Conceptual Framework},</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">  month = oct, year = {1962}, </span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">  institution = {SRI}  </span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">}</span></a></code></pre></div>
 <p>A regular expression to catch potential start positions of Visual-Meta records is “<code>@[a-z]+{</code>”. To extract Visual-Meta from a document a parser needs to find the last of these positions that start a syntactically well-formed BibTeX entry.</p>
-<h2 id="bibtex-format">BibTeX format</h2>
+<h3 id="bibtex-format">BibTeX format</h3>
 <p>BibTeX is an outdated legacy format but still the most common format to exchange bibliographic records for citation management. In contrast to more modern alternatives such as CSL-JSON, BibTeX records may at least be familar to some users. Moreover its syntax is relatively condence, extendible and not affected by line breaks.</p>
-<p>To process BibTeX format it requires a BibTeX parser. Several BibTeX parsers don’t respect the actual BibTeX grammar, as specified in the BibTeX source code.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> An extensive description of BibTeX format is included in the biblatex manual (<span class="citation" data-cites="biblatex">Kime, Wemheuer, and Lehman (2019)</span>; section 2).</p>
+<p>To process BibTeX format it requires a BibTeX parser. Several BibTeX parsers don’t respect the actual BibTeX grammar, as specified in the BibTeX source code.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> An extensive description of BibTeX format is included in the biblatex manual (<span class="citation" data-cites="biblatex">Kime, Wemheuer, and Lehman (<a href="#ref-biblatex">2019</a>)</span>; section 2).</p>
 <p>BibTeX entries can include custom key-value pairs so Visual-Meta can extend the format with additional fields. Lists of values are supported as “separated value fields” with comma as separator (like supported in standard field <code>keywords</code>). Values can optionally be wrapped in braces to support literal commas in fields values. To support nested fields, a custom field can also contain a list of key-value pairs:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb2-1" title="1"><span class="co">@type{key,</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="co">  simplefield = {field value},</span></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co">  listfield = {first, {second, with a comma}, third},</span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co">  subfields = {key = {value}, listkey = {first, second}}</span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="co">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">@type{key,</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">  simplefield = {field value},</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">  listfield = {first, {second, with a comma}, third},</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">  subfields = {key = {value}, listkey = {first, second}}</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">}</span></a></code></pre></div>
 <p>BibTeX syntax with custom fields can internally be converted to another format such as JSON. BibTeX entry type and optional key should NOT be stored as additional fields <code>type</code> and <code>key</code> but for instance <code>entrytype</code> and <code>entrykey</code> (if needed).</p>
 <p>Note that extended field values must not contain unbalanced braces. Lists of lists are neither allowed.</p>
-<h2 id="visual-meta-fields">Visual-Meta fields</h2>
+<h3 id="visual-meta-fields">Visual-Meta fields</h3>
 <p>Non-standard BibTeX fields of Visual-Meta are yet to be specified. Fields proposed in earlier documents about Visual-Meta include:</p>
 <ul>
 <li>document</li>
@@ -118,7 +119,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>glossary</li>
 <li>visible-meta</li>
 </ul>
-<p>Custom Visual-Meta field names must be checked against the biblatex manual <span class="citation" data-cites="biblatex">(Kime, Wemheuer, and Lehman 2019)</span> to not collide with existing fields! Some possible Visual-Meta fields are described as following.</p>
+<p>Custom Visual-Meta field names must be checked against the biblatex manual <span class="citation" data-cites="biblatex">(Kime, Wemheuer, and Lehman <a href="#ref-biblatex">2019</a>)</span> to not collide with existing fields! Some possible Visual-Meta fields are described as following.</p>
 <!--
   document = {augmentinghu_douglas_engelbart_19621021231532_6396.pdf},
   (css styled) formatting = { heading level 1 = {Helvetica, 22pt, bold}, heading level 2 = {Helvetica, 18, bold}, body = {Times, 12pt}, image captions = {‘Times, l4, italic, align centre} },
@@ -138,54 +139,62 @@ Contibuting orchid = {...}
 }
 
 -->
-<h3 id="orcid">orcid</h3>
+<h4 id="orcid">orcid</h4>
 <p>A list of ORCID of authors. This is useful to extend the author field. For instance:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb3-1" title="1"><span class="va">@misc</span>{</a>
-<a class="sourceLine" id="cb3-2" title="2">  <span class="ot">author</span> = {<span class="ot">Hegland</span>, <span class="st">Frode</span> <span class="st">and</span> <span class="st">Vo</span><span class="er">ß</span>, <span class="st">Jakob</span>}<span class="co">,</span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="co">  orcid = {https://orcid.org/0000-0001-5711-1279, https://orcid.org/0000-0002-7613-4123}</span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">}</span></a></code></pre></div>
-<p>Corresponding fields can be used for other name fields, e.g. <code>editororcid</code>, <code>holderorcid</code>… The <code>orcid</code> field should have the same number of elements like authors listed in the corresponding author field. If an author has no ORCID, an empty list element can be included.</p>
-<h3 id="styles">styles</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="va">@misc</span>{</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="ot">author</span> = {<span class="ot">Hegland</span>, <span class="st">Frode</span> <span class="st">and</span> <span class="st">Vo</span><span class="er">ß</span>, <span class="st">Jakob</span>}<span class="co">,</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">  orcid = {https://orcid.org/0000-0001-5711-1279, https://orcid.org/0000-0002-7613-4123}</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
+<p>Corresponding fields can be used for other name fields, e.g. <code>editororcid</code>, <code>holderorcid</code>… The <code>orcid</code> field should have the same number of elements like authors listed in the corresponding author field. If an author has no ORCID, an empty list element can be included.</p>
+<h4 id="styles">styles</h4>
 <p>A list of layout rules how to extract semantic parts from layout.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> The syntax of such rules has to be defined. At least layout properties such as font-size, color etc. should be based on corresponding CSS names instead of inventing an additional style language.</p>
 <p>Reverse CSS</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb4-1" title="1"><span class="co">styles = {</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="co">  heading = {font-weight=bold},</span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="co">  footnote = {font-size=&lt;small}</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="co">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">styles = {</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">  heading = {font-weight=bold},</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">  footnote = {font-size=&lt;small}</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
 <p>The style location language might also allow comparision and more complex location such as known from query languages like XPath but it should not be too complex.</p>
-<h3 id="fragments">fragments</h3>
+<h4 id="fragments">fragments</h4>
 <p>A list of document fragments such as chapters, transcluded quotes… Identification of fragments is relevant to assign differnt metadata to different parts of the documents.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb5-1" title="1"><span class="co">fragments = {</span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="co">  {selector = ..., author = ...},</span></a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="co">  {selector = ..., author = ...}</span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="co">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">fragments = {</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">  {selector = ..., author = ...},</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">  {selector = ..., author = ...}</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
 <p>Each fragment is identfied by a <code>selector</code> to reference the fragment by an existing locating method (<a href="https://www.w3.org/TR/annotation-model/#selectors">Web annotation selectors</a>, purple numbers…).</p>
-<h2 id="copy-paste-with-visual-meta">Copy &amp; Paste with Visual-Meta</h2>
+<h3 id="copy-paste-with-visual-meta">Copy &amp; Paste with Visual-Meta</h3>
 <p>Two possible variants:</p>
 <ul>
 <li>Append the BibTeX entry to the raw text (Visual-Meta)</li>
 <li>Add BibTeX entry as additional format into the clipboard (non-visual metadata)</li>
 </ul>
-<h1 id="references" class="unnumbered">References</h1>
+<h2 id="references" class="unnumbered">References</h2>
 <div id="refs" class="references">
 <div id="ref-Q72167445">
-<p>Engelbart, Douglas. 1962. “Augmenting Human Intellect: A Conceptual Framework.” Menlo Park, USA: SRI International. <a href="http://dougengelbart.org/content/view/138">http://dougengelbart.org/content/view/138</a>.</p>
+<p>Engelbart, Douglas. 1962. “Augmenting Human Intellect: A Conceptual Framework.” Menlo Park, USA: SRI International. <a href="http://dougengelbart.org/content/view/138" class="uri">http://dougengelbart.org/content/view/138</a>.</p>
 </div>
 <div id="ref-Q72164951">
-<p>Hegland, Frode. 2019. “Visual-Meta: An Approach to Surfacing Metadata.” In <em>Proceedings of the 2nd International Workshop on Human Factors in Hypertext</em>, 31–33. doi:<a href="https://doi.org/10.1145/3345509.3349281">10.1145/3345509.3349281</a>.</p>
+<p>Hegland, Frode. 2019. “Visual-Meta: An Approach to Surfacing Metadata.” In <em>Proceedings of the 2nd International Workshop on Human Factors in Hypertext</em>, 31–33. <a href="https://doi.org/10.1145/3345509.3349281" class="uri">https://doi.org/10.1145/3345509.3349281</a>.</p>
 </div>
 <div id="ref-biblatex">
-<p>Kime, Philip, Moritz Wemheuer, and Philipp Lehman. 2019. “The Biblatex Package.” August 17. <a href="http://www.ctan.org/pkg/biblatex">http://www.ctan.org/pkg/biblatex</a>.</p>
+<p>Kime, Philip, Moritz Wemheuer, and Philipp Lehman. 2019. “The Biblatex Package.” August 17, 2019. <a href="http://www.ctan.org/pkg/biblatex" class="uri">http://www.ctan.org/pkg/biblatex</a>.</p>
 </div>
 </div>
 <section class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>See <span class="citation" data-cites="biblatex">Kime, Wemheuer, and Lehman (2019)</span>; section 2.1 for a list of common document types. To allow arbitrary document types, any sequence of letters a to z should be allowed.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>See <span class="citation" data-cites="biblatex">Kime, Wemheuer, and Lehman (<a href="#ref-biblatex">2019</a>)</span>; section 2.1 for a list of common document types. To allow arbitrary document types, any sequence of letters a to z should be allowed.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 <li id="fn2"><p>Available at <a href="http://ftp.rrze.uni-erlangen.de/ctan/biblio/bibtex/base/bibtex.web" class="uri">http://ftp.rrze.uni-erlangen.de/ctan/biblio/bibtex/base/bibtex.web</a>. See <a href="https://github.com/aclements/biblib#recognized-grammar" class="uri">https://github.com/aclements/biblib#recognized-grammar</a> for a formal grammar.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 <li id="fn3"><p>The use case is the reverse of application of styles to elements. See <a href="https://stackoverflow.com/q/58503493/373710" class="uri">https://stackoverflow.com/q/58503493/373710</a> fora discussion how to extract document sections based on style.<a href="#fnref3" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
+
+        </div>
+      </article>      
+    </main>
+
+    
+    
+  </body>
 <script>(refs => {
   const base = 'http://www.wikidata.org/entity/'
   Array.from(refs).filter(e => (e.id || '').match(/^ref-(Q[0-9]+)$/))
@@ -206,5 +215,4 @@ Contibuting orchid = {...}
   margin-right: 0.2em;
 }
 </style>
-</body>
 </html>

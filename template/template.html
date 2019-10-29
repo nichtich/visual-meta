@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$"$if(dir)$ dir="$dir$"$endif$>
+  <head>
+    <meta charset="utf-8" />
+    <title>$title$</title>
+    <link href="css/basic.css" media="all" rel="stylesheet" />
+    <link href="css/dokieli.css" rel="stylesheet" media="all" />
+    <link href="css/index.css" rel="stylesheet" media="all" />
+    <meta name="generator" content="pandoc" />
+    $if(canonical)$
+    <link rel="canonical" href="$canonical$" />
+    $endif$
+  </head>
+
+  <body about="" prefix="rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns# schema: http://schema.org/" typeof="schema:CreativeWork">
+
+    <main>
+      <article about="" typeof="schema:ScholarlyArticle">
+        
+        <h1 property="schema:name">$title$</h1>
+
+        $if(subtitle)$
+        <p id="subtitle">$subtitle$</p>
+        $endif$
+
+        $if(author)$
+        <div id="authors">
+          <dl id="author-name">
+            <dt>Authors</dt>
+            <dd>
+             $for(author)$
+              <span about="" rel="schema:creator schema:publisher schema:author">
+                <a about="https://orcid.org/$author.orcid$" typeof="schema:Person" rel="schema:url" property="schema:name" href="">$author.name$</a>
+                $if(author.orcid)$
+                  <a href="https://orcid.org/$author.orcid$">
+                    <img alt="ORCID iD" src="orcid.svg" style="height:16px; margin-left:4px; margin-right:4px; width:16px">
+                  </a>
+                $endif$
+              </span>
+             $endfor$
+            </dd>
+          </dl>
+          <ul id="author-org">
+           $for(author)$
+            <li>$author.affiliation$</li>
+           $endfor$
+          </ul>
+          <ul id="author-email">
+           $for(author)$
+            <li><a about="https://orcid.org/$author.orcid$" rel="schema:email" href="mailto:$author.email$">$author.email$</a></li>
+           $endfor$
+          </ul>
+        </div>
+        $endif$
+
+        $if(created)$
+        <dl id="document-created">
+          <dt>Published</dt>
+          <dd>$created$</dd>
+        </dl>
+        $endif$
+
+        $if(date)$
+        <dl id="document-date">
+          <dt>$if(created)$Modified$else$Date$endif$</dt>
+          <dd>
+            $date$
+            $if(version)$ (version $version$)$endif$
+          </dd>
+        </dl>
+        $endif$
+
+        $if(identifier)$
+        <dl id="document-identifier">
+          <dt>Identifier</dt>
+          <dd>
+          $for(identifier)$
+            <a href="$identifier$">$identifier$</a>
+            $sep$,
+          $endfor$
+          </dd>
+        </dl>
+        $endif$
+
+        $if(status)$
+        <dl id="document-status">
+          <dt>Status</dt>
+          <dd>$status$</dd>
+        </dl>
+        $endif$
+
+        $if(repository)$
+        <dl id="document-repository">
+          <dt>Repository</dt>
+          <dd><a href="$repository$">$repository$</a></dd>
+        </dl>
+        $endif$
+
+        $if(feedback)$
+        <dl id="document-feedback">
+          <dt>Feedback</dt>
+          $for(feedback)$
+          <dd><a href="$feedback.url$">$feedback.title$</a></dd>
+          $endfor$
+        </dl>
+        $endif$
+
+        $if(license)$
+        <dl id="document-license">
+          <dt>License</dt>
+          <dd><a href="$license.uri$">$license.label$</a></dd>
+        </dl>
+        $endif$
+
+
+        <div id="content">
+
+          $if(abstract)$
+          <section id="abstract">
+            <h2>Abstract</h2>
+            <div datatype="rdf:HTML" property="schema:abstract">
+              $abstract$
+            </div>
+          </section>
+          $endif$
+
+          $if(ccsdesc)$
+          <section id="categories-and-subject-descriptors">
+            <h2>Categories and Subject Descriptors</h2>
+            <div>
+              <ul>
+               $for(ccsdesc)$
+                <li>
+                 <a href="$ccsdesc.url$">CCS</a>
+                 $ccsdesc.class$ 
+                </li>
+               $endfor$
+              </ul>
+            </div>
+          </section>
+          $endif$
+
+          $if(keywords)$
+          <section id="keywords">
+            <h2>Keywords</h2>
+            <div>
+              <ul rel="schema:about">
+               $for(keywords)$
+                <li>$if(keywords.uri)$
+                  <a class="wikidata-link" href="$keywords.uri$">$keywords.label$</a>
+                  $else$$keywords$$endif$</li>
+               $endfor$
+              </ul>
+            </div>
+          </section>
+          $endif$
+
+$body$
+
+        </div>
+      </article>      
+    </main>
+
+    $if(changelog)$
+    <section id="changelog">
+      <h2>Changelog</h2>
+      $if(repository)$
+      <p>See <a href="$repository$">source code repository</a> for detailed changes.</p>
+      $endif$
+      <dl>
+        $if(version)$<dt>$version$ ($date$)</dt>$endif$
+        $if(status)$<dd>$status$</dd>$endif$
+        $for(changelog)$
+        <dt>
+          <a href="$changelog.version$.html">$changelog.version$</a>
+          ($changelog.date$) 
+        </dt>
+        <dd>$changelog.status$</dd>
+        $endfor$
+      </dl>
+    </section>
+    $endif$
+
+    $if(interactions)$
+    <section id="document-interactions">
+      <h2>Interactions</h2>
+      <div>
+        $for(interactions)$
+        $if(interactions.id)$
+        <article id="i-$interactions.id$" rel="sioc:has_reply" typeof="oa:Annotation as:Note">
+          <h3 property="schema:name">
+            $for(interactions.author)$
+            <span rel="schema:creator oa:annotatedBy as:actor">
+              $if(interactions.author.uri)$
+              <span about="$interactions.author.uri$" typeof="schema:Person">
+                <a rel="schema:url" href="$author.uri$">
+                  <span about="$interactions.author.uri$" property="schema:name">$interactions.author.name$</span>
+                </a>
+              </span>
+              $else$
+              <span typeof="schema:Person">
+                <span property="schema:name">$interactions.author$</span>
+              </span>
+              $endif$
+            </span>
+            $endfor$
+            <a rel="oa:hasTarget as:inReplyTo" href="#">
+              <span about="#i-$interactions.id$" rel="oa:motivatedBy" resource="oa:replying">replied</span>
+            </a>
+            $if(interactions.date)$
+            on
+            <a href="#i-$interactions.id$">
+              <time property="oa:annotatedAt as:published schema:datePublished" datatype="xsd:dateTime" content="$interactions.date$" datetime="$interactions.date$">$interactions.date$</time>
+            </a>
+            $endif$
+          </h3>
+          <div datatype="rdf:HTML" property="as:content schema:description" rel="oa:hasBody"><div datatype="rdf:HTML" property="rdf:value" resource="#note-$interactions.id$" typeof="oa:TextualBody">
+          $interactions.content$
+          </div>
+        </article>
+        $endif$
+        $endfor$
+      </div>
+    </section>
+    $endif$
+
+  </body>
+$for(include-after)$
+$include-after$
+$endfor$
+</html>
