@@ -134,24 +134,20 @@ Corresponding fields can be used for other name fields, e.g. `editororcid`, `hol
 
 #### styles
 
-A list of layout rules how to extract semantic parts from layout.^[The use case is the reverse of application of styles to elements. See <https://stackoverflow.com/q/58503493/373710> fora discussion how to extract document sections based on style.] The syntax of such rules has to be defined. At least layout properties such as font-size, color etc. should be based on corresponding CSS names instead of inventing an additional style language. 
+A list of layout rules how to extract semantic parts from layout.^[The use case is the reverse of application of styles to elements. See <https://stackoverflow.com/q/58503493/373710> fora discussion how to extract document sections based on style.] The syntax of such rules has to be defined. At least layout properties such as font-size, color etc. should be based on corresponding CSS names instead of inventing an additional style language. The style location language might also allow comparision and more complex location such as known from query languages like XPath but it should not be too complex. A preliminary example:
 
-Reverse CSS
-
-~~~bibtex
+~~~
 styles = {
   heading = {font-weight=bold},
   footnote = {font-size=<small}
 }
 ~~~
 
-The style location language might also allow comparision and more complex location such as known from query languages like XPath but it should not be too complex.
-
 #### fragments
 
 A list of document fragments such as chapters, transcluded quotes^[Hypertext as originally envisioned by @Q4004427 requires transclusion but this feature is rarely implemented in current systems. See @Q67915697 for a summary of what's needed to finally get real hypertext.]... Identification of fragments is relevant to assign differnt metadata to different parts of the documents.
 
-~~~bibtex
+~~~
 fragments = {
   {selector = ..., author = ...},
   {selector = ..., author = ...}
@@ -167,7 +163,7 @@ An important design goal of Visual-Meta is to support persistence of metadata fo
 1. Visual-Meta is appended as BibTeX entry to the end of the document (at least in raw text format)
 2. Visual-Meta is included as alternative data format BibTeX with content type `application/x-bibtex`
 
-The second approach has the benefit (or disadvantage) of not including a BibTeX entry in the default format so applications not aware of Visual-Meta will not behave differently when pasting into them. The first approach, however may be more easy to implement. See [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) to access the clipboard from web applications.
+The second approach has the benefit (or disadvantage) of not including a BibTeX entry in the default format so applications not aware of Visual-Meta will not behave differently when pasting into them. The first approach, however may be more easy to implement. See [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) to access the clipboard from web applications. If a section is copied, the Visual-Meta field `selector` should be added to point to the particular selection such as applied with selectors of the Web Annotation Data Model [@Q31792645].
 
 ## Visual-Meta of this document
 

@@ -155,19 +155,17 @@ Contibuting orchid = {...}
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
 <p>Corresponding fields can be used for other name fields, e.g. <code>editororcid</code>, <code>holderorcid</code>… The <code>orcid</code> field should have the same number of elements like authors listed in the corresponding author field. If an author has no ORCID, an empty list element can be included.</p>
 <h4 id="styles">styles</h4>
-<p>A list of layout rules how to extract semantic parts from layout.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> The syntax of such rules has to be defined. At least layout properties such as font-size, color etc. should be based on corresponding CSS names instead of inventing an additional style language.</p>
-<p>Reverse CSS</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">styles = {</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">  heading = {font-weight=bold},</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">  footnote = {font-size=&lt;small}</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
-<p>The style location language might also allow comparision and more complex location such as known from query languages like XPath but it should not be too complex.</p>
+<p>A list of layout rules how to extract semantic parts from layout.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> The syntax of such rules has to be defined. At least layout properties such as font-size, color etc. should be based on corresponding CSS names instead of inventing an additional style language. The style location language might also allow comparision and more complex location such as known from query languages like XPath but it should not be too complex. A preliminary example:</p>
+<pre><code>styles = {
+  heading = {font-weight=bold},
+  footnote = {font-size=&lt;small}
+}</code></pre>
 <h4 id="fragments">fragments</h4>
 <p>A list of document fragments such as chapters, transcluded quotes<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>… Identification of fragments is relevant to assign differnt metadata to different parts of the documents.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">fragments = {</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">  {selector = ..., author = ...},</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">  {selector = ..., author = ...}</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
+<pre><code>fragments = {
+  {selector = ..., author = ...},
+  {selector = ..., author = ...}
+}</code></pre>
 <p>Each fragment is identfied by a <code>selector</code> to reference the fragment by an existing locating method (<a href="https://www.w3.org/TR/annotation-model/#selectors">Web annotation selectors</a>, purple numbers…).</p>
 <h3 id="copy-paste-with-visual-meta">Copy &amp; Paste with Visual-Meta</h3>
 <p>An important design goal of Visual-Meta is to support persistence of metadata for copy &amp; paste. Two solution exist to transport the metdata via clipboard:</p>
@@ -175,7 +173,7 @@ Contibuting orchid = {...}
 <li>Visual-Meta is appended as BibTeX entry to the end of the document (at least in raw text format)</li>
 <li>Visual-Meta is included as alternative data format BibTeX with content type <code>application/x-bibtex</code></li>
 </ol>
-<p>The second approach has the benefit (or disadvantage) of not including a BibTeX entry in the default format so applications not aware of Visual-Meta will not behave differently when pasting into them. The first approach, however may be more easy to implement. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API">Clipboard API</a> to access the clipboard from web applications.</p>
+<p>The second approach has the benefit (or disadvantage) of not including a BibTeX entry in the default format so applications not aware of Visual-Meta will not behave differently when pasting into them. The first approach, however may be more easy to implement. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API">Clipboard API</a> to access the clipboard from web applications. If a section is copied, the Visual-Meta field <code>selector</code> should be added to point to the particular selection such as applied with selectors of the Web Annotation Data Model <span class="citation" data-cites="Q31792645">(Sanderson, Ciccarese, and Young <a href="#ref-Q31792645">2017</a>)</span>.</p>
 <h2 id="visual-meta-of-this-document">Visual-Meta of this document</h2>
 <p>The following BibTeX entry is the last occurring in this document, so it will be used as Visual-Meta.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="va">@techreport</span>{</a>
@@ -200,6 +198,9 @@ Contibuting orchid = {...}
 </div>
 <div id="ref-Q4004427">
 <p>Nelson, Ted. 1965. “Complex Information Processing: A File Structure for the Complex, the Changing and the Indeterminate.” Essay. In <em>Proceedings of the 1965 20th National Conference</em>, 84–100. <a href="https://doi.org/10.1145/800197.806036" class="uri">https://doi.org/10.1145/800197.806036</a>.</p>
+</div>
+<div id="ref-Q31792645">
+<p>Sanderson, Robert, Paolo Ciccarese, and Benjamin Young, eds. 2017. <em>Web Annotation Data Model</em>.</p>
 </div>
 <div id="ref-Q67915697">
 <p>Voss, Jakob. 2019. “Infrastructure-Agnostic Hypertext,” June. <a href="https://jakobib.github.io/hypertext2019/" class="uri">https://jakobib.github.io/hypertext2019/</a>.</p>

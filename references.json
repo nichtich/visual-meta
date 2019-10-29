@@ -1,5 +1,33 @@
 [
   {
+    "editor": [
+      {
+        "family": "Sanderson",
+        "given": "Robert"
+      },
+      {
+        "family": "Ciccarese",
+        "given": "Paolo"
+      },
+      {
+        "family": "Young",
+        "given": "Benjamin"
+      }
+    ],
+    "id": "Q31792645",
+    "issued": {
+      "date-parts": [
+        [
+          2017,
+          2,
+          23
+        ]
+      ]
+    },
+    "title": "Web Annotation Data Model",
+    "type": "book"
+  },
+  {
     "DOI": "10.1145/800197.806036",
     "author": [
       {
