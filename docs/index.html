@@ -88,11 +88,11 @@
           
           
 <h2 id="introduction">Introduction</h2>
-<p>The connection between a document and information <em>about</em> it (metadata), is easily lost when the document is copied or converted. Some document formats support embedded metadata such as EXIF in image files and XMP in PDF files, but the quality of this data is usually poor and its is rarely used when referencing the document. The loss of metadata is even more inevitable when a section of a document is copied. Software for citation management and personal knowledge management such as Zotero and Citavi provide tools to keep track of document metadata but the metadata first has to be provided in some form and second its not kept easily across different tools.</p>
-<p>Visual-Meta is an approach to keep the connection between document and metadata by visibly putting the metadata into a document. The idea was presented by <span class="citation" data-cites="Q72164951">Hegland (<a href="#ref-Q72164951">2019</a>)</span> at the Hypertext’19 conference where I first criticized it but then got into a fruitful discussion that eventually led to this document.</p>
+<p>The connection between a document and information <em>about</em> it (metadata), is easily lost when the document is copied or converted. Some document formats support embedded metadata such as EXIF in image files and XMP in PDF files, but the quality of this data is usually poor and its is rarely used when referencing the document. The loss of metadata is even more inevitable when a section of a document is copied. Software for citation management and personal knowledge management such as Zotero and Citavi provide tools to keep track of document metadata and notes but first the data has to be provided in some form and second it is kept in a database separate from the document so it is only useable with the specific software.</p>
+<p>Visual-Meta is an approach to keep the connection between document and metadata by visibly putting the metadata into a document. The idea was presented by <span class="citation" data-cites="Q72164951">Hegland (<a href="#ref-Q72164951">2019</a>)</span> at the Hypertext’19 conference where I first criticized it but then got into a fruitful discussion that eventually led to this document.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <h2 id="visual-meta">Visual-Meta</h2>
-<p>In its current, informal specification Visual-Meta is basically a BibTeX entry embedded in a document. The BibTeX entry MUST start with <code>@</code> directly followed by the document type<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and an opening <code>{</code>.</p>
-<p>In its simplest form for a Visual-Meta record is just a BibTeX entry like this of <span class="citation" data-cites="Q72167445">Engelbart (<a href="#ref-Q72167445">1962</a>)</span>:</p>
+<p>In its current, informal specification Visual-Meta is basically a BibTeX entry embedded in a document. The BibTeX entry MUST start with <code>@</code> directly followed by the document type<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and an opening <code>{</code>.</p>
+<p>In its simplest form for a Visual-Meta record is just a BibTeX entry like this (referencing <span class="citation" data-cites="Q72167445">Engelbart (<a href="#ref-Q72167445">1962</a>)</span>):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="va">@article</span>{</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="ot">author</span> = {<span class="ot">Douglas</span> <span class="ot">Engelbart</span>}<span class="co">,</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">  title = {Augmenting Human Intellect: A Conceptual Framework},</span></a>
@@ -101,16 +101,24 @@
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">}</span></a></code></pre></div>
 <p>A regular expression to catch potential start positions of Visual-Meta records is “<code>@[a-z]+{</code>”. To extract Visual-Meta from a document a parser needs to find the last of these positions that start a syntactically well-formed BibTeX entry.</p>
 <h3 id="bibtex-format">BibTeX format</h3>
-<p>BibTeX is an outdated legacy format but still the most common format to exchange bibliographic records for citation management. In contrast to more modern alternatives such as CSL-JSON, BibTeX records may at least be familar to some users. Moreover its syntax is relatively condence, extendible and not affected by line breaks.</p>
-<p>To process BibTeX format it requires a BibTeX parser. Several BibTeX parsers don’t respect the actual BibTeX grammar, as specified in the BibTeX source code.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> An extensive description of BibTeX format is included in the biblatex manual (<span class="citation" data-cites="biblatex">Kime, Wemheuer, and Lehman (<a href="#ref-biblatex">2019</a>)</span>; section 2).</p>
-<p>BibTeX entries can include custom key-value pairs so Visual-Meta can extend the format with additional fields. Lists of values are supported as “separated value fields” with comma as separator (like supported in standard field <code>keywords</code>). Values can optionally be wrapped in braces to support literal commas in fields values. To support nested fields, a custom field can also contain a list of key-value pairs:</p>
+<p>BibTeX is an outdated legacy format but still the most common format to exchange bibliographic records for the purpose of citation management. In contrast to more modern alternatives such as <a href="http://format.gbv.de/csl-json">CSL-JSON</a>, BibTeX records may at least be familar to some users. Moreover its syntax is relatively condence, extendible and not affected by line breaks. An extensive description of BibTeX format is included in the biblatex manual (<span class="citation" data-cites="biblatex">Kime, Wemheuer, and Lehman (<a href="#ref-biblatex">2019</a>)</span>; section 2).</p>
+<p>To process BibTeX format it requires a BibTeX parser. Such programming libraries exist in several programming languages although not all of them fully respect the actual BibTeX grammar, as specified in the BibTeX source code.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> BibTeX entries can include custom key-value pairs so Visual-Meta can extend the format with additional fields.</p>
+<h3 id="bibtex-format-extension">BibTeX format extension</h3>
+<p>BibTeX supports lists of values in “separated value fields” using comma as separator (for instance in then standard BibTeX field <code>keywords</code>). Values can optionally be wrapped in braces to support literal commas in fields values. To further support nested fields, Visual-Meta introduces its own syntax on top of custom BibTeX custom fields like this:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">@type{key,</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">  simplefield = {field value},</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">  listfield = {first, {second, with a comma}, third},</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">  subfields = {key = {value}, listkey = {first, second}}</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">}</span></a></code></pre></div>
-<p>BibTeX syntax with custom fields can internally be converted to another format such as JSON. BibTeX entry type and optional key should NOT be stored as additional fields <code>type</code> and <code>key</code> but for instance <code>entrytype</code> and <code>entrykey</code> (if needed).</p>
-<p>Note that extended field values must not contain unbalanced braces. Lists of lists are neither allowed.</p>
+<p>The extended BibTeX syntax with custom fields can internally be converted to another format such as JSON to simplify processing. BibTeX entry type and optional key should NOT be stored as additional fields <code>type</code> and <code>key</code> but for instance <code>entrytype</code> and <code>entrykey</code> (if needed). The example above could then be processed like this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="dt">&quot;entrytype&quot;</span><span class="fu">:</span> <span class="st">&quot;key&quot;</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="st">&quot;entrykey&quot;</span><span class="er">:</span> <span class="st">&quot;type&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="dt">&quot;simplefield&quot;</span><span class="fu">:</span> <span class="st">&quot;field value&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="dt">&quot;listfield&quot;</span><span class="fu">:</span> <span class="ot">[</span> <span class="st">&quot;first&quot;</span><span class="ot">,</span> <span class="st">&quot;second, with a comma&quot;</span><span class="ot">,</span> <span class="st">&quot;third&quot;</span> <span class="ot">]</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="dt">&quot;subfields&quot;</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">&quot;key&quot;</span><span class="fu">:</span> <span class="st">&quot;value&quot;</span><span class="fu">,</span> <span class="dt">&quot;listkey&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;first&quot;</span><span class="ot">,</span> <span class="st">&quot;second&quot;</span><span class="ot">]</span> <span class="fu">}</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="fu">}</span></a></code></pre></div>
+<p>Note that the BibTeX extension does not encoding of artitrary JSON in BibTeX: extended field values must not contain unbalanced braces or lists of lists.</p>
 <h3 id="visual-meta-fields">Visual-Meta fields</h3>
 <p>Non-standard BibTeX fields of Visual-Meta are yet to be specified. Fields proposed in earlier documents about Visual-Meta include:</p>
 <ul>
@@ -141,32 +149,44 @@ Contibuting orchid = {...}
 -->
 <h4 id="orcid">orcid</h4>
 <p>A list of ORCID of authors. This is useful to extend the author field. For instance:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="va">@misc</span>{</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="ot">author</span> = {<span class="ot">Hegland</span>, <span class="st">Frode</span> <span class="st">and</span> <span class="st">Vo</span><span class="er">ß</span>, <span class="st">Jakob</span>}<span class="co">,</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">  orcid = {https://orcid.org/0000-0001-5711-1279, https://orcid.org/0000-0002-7613-4123}</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="va">@misc</span>{</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="ot">author</span> = {<span class="ot">Hegland</span>, <span class="st">Frode</span> <span class="st">and</span> <span class="st">Vo</span>{<span class="ch">\ss</span>}, <span class="st">Jakob</span>}<span class="co">,</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">  orcid = {https://orcid.org/0000-0001-5711-1279, https://orcid.org/0000-0002-7613-4123}</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
 <p>Corresponding fields can be used for other name fields, e.g. <code>editororcid</code>, <code>holderorcid</code>… The <code>orcid</code> field should have the same number of elements like authors listed in the corresponding author field. If an author has no ORCID, an empty list element can be included.</p>
 <h4 id="styles">styles</h4>
-<p>A list of layout rules how to extract semantic parts from layout.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> The syntax of such rules has to be defined. At least layout properties such as font-size, color etc. should be based on corresponding CSS names instead of inventing an additional style language.</p>
+<p>A list of layout rules how to extract semantic parts from layout.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> The syntax of such rules has to be defined. At least layout properties such as font-size, color etc. should be based on corresponding CSS names instead of inventing an additional style language.</p>
 <p>Reverse CSS</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">styles = {</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">  heading = {font-weight=bold},</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">  footnote = {font-size=&lt;small}</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">styles = {</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">  heading = {font-weight=bold},</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">  footnote = {font-size=&lt;small}</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
 <p>The style location language might also allow comparision and more complex location such as known from query languages like XPath but it should not be too complex.</p>
 <h4 id="fragments">fragments</h4>
-<p>A list of document fragments such as chapters, transcluded quotes… Identification of fragments is relevant to assign differnt metadata to different parts of the documents.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">fragments = {</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">  {selector = ..., author = ...},</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">  {selector = ..., author = ...}</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
+<p>A list of document fragments such as chapters, transcluded quotes<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>… Identification of fragments is relevant to assign differnt metadata to different parts of the documents.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">fragments = {</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">  {selector = ..., author = ...},</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">  {selector = ..., author = ...}</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">}</span></a></code></pre></div>
 <p>Each fragment is identfied by a <code>selector</code> to reference the fragment by an existing locating method (<a href="https://www.w3.org/TR/annotation-model/#selectors">Web annotation selectors</a>, purple numbers…).</p>
 <h3 id="copy-paste-with-visual-meta">Copy &amp; Paste with Visual-Meta</h3>
-<p>Two possible variants:</p>
-<ul>
-<li>Append the BibTeX entry to the raw text (Visual-Meta)</li>
-<li>Add BibTeX entry as additional format into the clipboard (non-visual metadata)</li>
-</ul>
+<p>An important design goal of Visual-Meta is to support persistence of metadata for copy &amp; paste. Two solution exist to transport the metdata via clipboard:</p>
+<ol type="1">
+<li>Visual-Meta is appended as BibTeX entry to the end of the document (at least in raw text format)</li>
+<li>Visual-Meta is included as alternative data format BibTeX with content type <code>application/x-bibtex</code></li>
+</ol>
+<p>The second approach has the benefit (or disadvantage) of not including a BibTeX entry in the default format so applications not aware of Visual-Meta will not behave differently when pasting into them. The first approach, however may be more easy to implement. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API">Clipboard API</a> to access the clipboard from web applications.</p>
+<h2 id="visual-meta-of-this-document">Visual-Meta of this document</h2>
+<p>The following BibTeX entry is the last occurring in this document, so it will be used as Visual-Meta.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="va">@techreport</span>{</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="ot">title</span> = {<span class="ot">Visual</span>-<span class="ot">Meta</span> <span class="ot">design</span> <span class="ot">considerations</span>}<span class="co">,</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">  author = {Jakob Vo{\ss}},</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">  orcid = {https://orcid.org/0000-0002-7613-4123},</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">  url = {http://jakobvoss.de/visual-meta/},</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">  year = 2019,</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">  month = 10,</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">  day = 29,</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">}</span></a></code></pre></div>
 <h2 id="references" class="unnumbered">References</h2>
 <div id="refs" class="references">
 <div id="ref-Q72167445">
@@ -178,13 +198,21 @@ Contibuting orchid = {...}
 <div id="ref-biblatex">
 <p>Kime, Philip, Moritz Wemheuer, and Philipp Lehman. 2019. “The Biblatex Package.” August 17, 2019. <a href="http://www.ctan.org/pkg/biblatex" class="uri">http://www.ctan.org/pkg/biblatex</a>.</p>
 </div>
+<div id="ref-Q4004427">
+<p>Nelson, Ted. 1965. “Complex Information Processing: A File Structure for the Complex, the Changing and the Indeterminate.” Essay. In <em>Proceedings of the 1965 20th National Conference</em>, 84–100. <a href="https://doi.org/10.1145/800197.806036" class="uri">https://doi.org/10.1145/800197.806036</a>.</p>
+</div>
+<div id="ref-Q67915697">
+<p>Voss, Jakob. 2019. “Infrastructure-Agnostic Hypertext,” June. <a href="https://jakobib.github.io/hypertext2019/" class="uri">https://jakobib.github.io/hypertext2019/</a>.</p>
+</div>
 </div>
 <section class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>See <span class="citation" data-cites="biblatex">Kime, Wemheuer, and Lehman (<a href="#ref-biblatex">2019</a>)</span>; section 2.1 for a list of common document types. To allow arbitrary document types, any sequence of letters a to z should be allowed.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>Available at <a href="http://ftp.rrze.uni-erlangen.de/ctan/biblio/bibtex/base/bibtex.web" class="uri">http://ftp.rrze.uni-erlangen.de/ctan/biblio/bibtex/base/bibtex.web</a>. See <a href="https://github.com/aclements/biblib#recognized-grammar" class="uri">https://github.com/aclements/biblib#recognized-grammar</a> for a formal grammar.<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>The use case is the reverse of application of styles to elements. See <a href="https://stackoverflow.com/q/58503493/373710" class="uri">https://stackoverflow.com/q/58503493/373710</a> fora discussion how to extract document sections based on style.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>The pros and cons of putting metadata into documents are out of the scope of this paper.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>See <span class="citation" data-cites="biblatex">Kime, Wemheuer, and Lehman (<a href="#ref-biblatex">2019</a>)</span>; section 2.1 for a list of common document types. To allow arbitrary document types, any sequence of letters a to z should be allowed.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Available at <a href="http://ftp.rrze.uni-erlangen.de/ctan/biblio/bibtex/base/bibtex.web" class="uri">http://ftp.rrze.uni-erlangen.de/ctan/biblio/bibtex/base/bibtex.web</a>. See <a href="https://github.com/aclements/biblib#recognized-grammar" class="uri">https://github.com/aclements/biblib#recognized-grammar</a> for a formal grammar.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>The use case is the reverse of application of styles to elements. See <a href="https://stackoverflow.com/q/58503493/373710" class="uri">https://stackoverflow.com/q/58503493/373710</a> fora discussion how to extract document sections based on style.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>Hypertext as originally envisioned by <span class="citation" data-cites="Q4004427">Nelson (<a href="#ref-Q4004427">1965</a>)</span> requires transclusion but this feature is rarely implemented in current systems. See <span class="citation" data-cites="Q67915697">Voss (<a href="#ref-Q67915697">2019</a>)</span> for a summary of what’s needed to finally get real hypertext.<a href="#fnref5" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 

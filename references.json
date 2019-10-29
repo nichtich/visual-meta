@@ -1,5 +1,51 @@
 [
   {
+    "DOI": "10.1145/800197.806036",
+    "author": [
+      {
+        "family": "Nelson",
+        "given": "Ted"
+      }
+    ],
+    "container-title": "Proceedings of the 1965 20th national conference",
+    "genre": "essay",
+    "id": "Q4004427",
+    "issued": {
+      "date-parts": [
+        [
+          1965,
+          1,
+          1
+        ]
+      ]
+    },
+    "page": "84-100",
+    "title": "Complex information processing: a file structure for the complex, the changing and the indeterminate",
+    "type": "paper-conference"
+  },
+  {
+    "URL": "https://jakobib.github.io/hypertext2019/",
+    "author": [
+      {
+        "family": "Voss",
+        "given": "Jakob"
+      }
+    ],
+    "id": "Q67915697",
+    "issued": {
+      "date-parts": [
+        [
+          2019,
+          6,
+          29
+        ]
+      ]
+    },
+    "number-of-pages": "4",
+    "title": "Infrastructure-Agnostic Hypertext",
+    "type": "article-journal"
+  },
+  {
     "DOI": "10.1145/3345509.3349281",
     "author": [
       {

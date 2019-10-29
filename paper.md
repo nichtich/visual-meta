@@ -33,15 +33,15 @@ bibliography:
 
 ## Introduction
 
-The connection between a document and information *about* it (metadata), is easily lost when the document is copied or converted. Some document formats support embedded metadata such as EXIF in image files and XMP in PDF files, but the quality of this data is usually poor and its is rarely used when referencing the document. The loss of metadata is even more inevitable when a section of a document is copied.  Software for citation management and personal knowledge management such as Zotero and Citavi provide tools to keep track of document metadata but the metadata first has to be provided in some form and second its not kept easily across different tools.
+The connection between a document and information *about* it (metadata), is easily lost when the document is copied or converted. Some document formats support embedded metadata such as EXIF in image files and XMP in PDF files, but the quality of this data is usually poor and its is rarely used when referencing the document. The loss of metadata is even more inevitable when a section of a document is copied.  Software for citation management and personal knowledge management such as Zotero and Citavi provide tools to keep track of document metadata and notes but first the data has to be provided in some form and second it is kept in a database separate from the document so it is only useable with the specific software.
 
-Visual-Meta is an approach to keep the connection between document and metadata by visibly putting the metadata into a document. The idea was presented by @Q72164951 at the Hypertext'19 conference where I first criticized it but then got into a fruitful discussion that eventually led to this document.
+Visual-Meta is an approach to keep the connection between document and metadata by visibly putting the metadata into a document. The idea was presented by @Q72164951 at the Hypertext'19 conference where I first criticized it but then got into a fruitful discussion that eventually led to this document.^[The pros and cons of putting metadata into documents are out of the scope of this paper.]
 
 ## Visual-Meta
 
 In its current, informal specification Visual-Meta is basically a BibTeX entry embedded in a document. The BibTeX entry MUST start with `@` directly followed by the document type^[See @biblatex; section 2.1 for a list of common document types. To allow arbitrary document types, any sequence of letters a to z should be allowed.] and an opening `{`.
 
-In its simplest form for a Visual-Meta record is just a BibTeX entry like this of @Q72167445:
+In its simplest form for a Visual-Meta record is just a BibTeX entry like this (referencing @Q72167445):
 
 ~~~bibtex
 @article{
@@ -56,11 +56,15 @@ A regular expression to catch potential start positions of Visual-Meta records i
 
 ### BibTeX format
 
-BibTeX is an outdated legacy format but still the most common format to exchange bibliographic records for citation management. In contrast to more modern alternatives such as CSL-JSON, BibTeX records may at least be familar to some users. Moreover its syntax is relatively condence, extendible and not affected by line breaks.
+[CSL-JSON]: http://format.gbv.de/csl-json
 
-To process BibTeX format it requires a BibTeX parser. Several BibTeX parsers don't respect the actual BibTeX grammar, as specified in the BibTeX source code.^[Available at <http://ftp.rrze.uni-erlangen.de/ctan/biblio/bibtex/base/bibtex.web>. See <https://github.com/aclements/biblib#recognized-grammar> for a formal grammar.] An extensive description of BibTeX format is included in the biblatex manual (@biblatex; section 2).
+BibTeX is an outdated legacy format but still the most common format to exchange bibliographic records for the purpose of citation management. In contrast to more modern alternatives such as [CSL-JSON], BibTeX records may at least be familar to some users. Moreover its syntax is relatively condence, extendible and not affected by line breaks.  An extensive description of BibTeX format is included in the biblatex manual (@biblatex; section 2).
 
-BibTeX entries can include custom key-value pairs so Visual-Meta can extend the format with additional fields. Lists of values are supported as "separated value fields" with comma as separator (like supported in standard field `keywords`). Values can optionally be wrapped in braces to support literal commas in fields values. To support nested fields, a custom field can also contain a list of key-value pairs:
+To process BibTeX format it requires a BibTeX parser. Such programming libraries exist in several programming languages although not all of them fully respect the actual BibTeX grammar, as specified in the BibTeX source code.^[Available at <http://ftp.rrze.uni-erlangen.de/ctan/biblio/bibtex/base/bibtex.web>. See <https://github.com/aclements/biblib#recognized-grammar> for a formal grammar.] BibTeX entries can include custom key-value pairs so Visual-Meta can extend the format with additional fields.
+
+### BibTeX format extension
+
+BibTeX supports lists of values in "separated value fields" using comma as separator (for instance in then standard BibTeX field `keywords`). Values can optionally be wrapped in braces to support literal commas in fields values. To further support nested fields, Visual-Meta introduces its own syntax on top of custom BibTeX custom fields like this:
 
 ~~~bibtex
 @type{key,
@@ -70,9 +74,19 @@ BibTeX entries can include custom key-value pairs so Visual-Meta can extend the 
 }
 ~~~
 
-BibTeX syntax with custom fields can internally be converted to another format such as JSON. BibTeX entry type and optional key should NOT be stored as additional fields `type` and `key` but for instance `entrytype` and `entrykey` (if needed).
+The extended BibTeX syntax with custom fields can internally be converted to another format such as JSON to simplify processing. BibTeX entry type and optional key should NOT be stored as additional fields `type` and `key` but for instance `entrytype` and `entrykey` (if needed). The example above could then be processed like this:
 
-Note that extended field values must not contain unbalanced braces. Lists of lists are neither allowed.
+~~~json
+{
+  "entrytype": "key"
+  "entrykey": "type",
+  "simplefield": "field value",
+  "listfield": [ "first", "second, with a comma", "third" ],
+  "subfields": { "key": "value", "listkey": ["first", "second"] }
+}
+~~~
+
+Note that the BibTeX extension does not encoding of artitrary JSON in BibTeX: extended field values must not contain unbalanced braces or lists of lists.
 
 ### Visual-Meta fields
 
@@ -111,7 +125,7 @@ A list of ORCID of authors. This is useful to extend the author field. For insta
 
 ~~~bibtex
 @misc{
-  author = {Hegland, Frode and Voß, Jakob},
+  author = {Hegland, Frode and Vo{\ss}, Jakob},
   orcid = {https://orcid.org/0000-0001-5711-1279, https://orcid.org/0000-0002-7613-4123}
 }
 ~~~
@@ -135,7 +149,7 @@ The style location language might also allow comparision and more complex locati
 
 #### fragments
 
-A list of document fragments such as chapters, transcluded quotes... Identification of fragments is relevant to assign differnt metadata to different parts of the documents.
+A list of document fragments such as chapters, transcluded quotes^[Hypertext as originally envisioned by @Q4004427 requires transclusion but this feature is rarely implemented in current systems. See @Q67915697 for a summary of what's needed to finally get real hypertext.]... Identification of fragments is relevant to assign differnt metadata to different parts of the documents.
 
 ~~~bibtex
 fragments = {
@@ -148,10 +162,28 @@ Each fragment is identfied by a `selector` to reference the fragment by an exist
 
 ### Copy & Paste with Visual-Meta
 
-Two possible variants:
+An important design goal of Visual-Meta is to support persistence of metadata for copy & paste. Two solution exist to transport the metdata via clipboard:
 
-* Append the BibTeX entry to the raw text (Visual-Meta)
-* Add BibTeX entry as additional format into the clipboard (non-visual metadata)
+1. Visual-Meta is appended as BibTeX entry to the end of the document (at least in raw text format)
+2. Visual-Meta is included as alternative data format BibTeX with content type `application/x-bibtex`
+
+The second approach has the benefit (or disadvantage) of not including a BibTeX entry in the default format so applications not aware of Visual-Meta will not behave differently when pasting into them. The first approach, however may be more easy to implement. See [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) to access the clipboard from web applications.
+
+## Visual-Meta of this document
+
+The following BibTeX entry is the last occurring in this document, so it will be used as Visual-Meta.
+
+~~~bibtex
+@techreport{
+  title = {Visual-Meta design considerations},
+  author = {Jakob Vo{\ss}},
+  orcid = {https://orcid.org/0000-0002-7613-4123},
+  url = {http://jakobvoss.de/visual-meta/},
+  year = 2019,
+  month = 10,
+  day = 29,
+}
+~~~
 
 ## References
 
